@@ -1,23 +1,19 @@
 import geopandas as gpd
 import osmnx as ox
-import geojson as gj
-import ast
 import json
 
-boundary_geojson = gpd.read_file('reprojected.geojson')
-#print(bounding_geojson.head())
-
+boundary_geojson = gpd.read_file('boundary.geojson')
 
 point = 47.22347, 8.81724
 dist = 1000
-buildings = ox.features_from_point(point, {'building': True, 'room': True, 'bench': True, 'door': True, 'indoor': True}, dist=dist)
+radius = ox.features_from_point(point, {'building': True, 'room': True, 'bench': True, 'door': True, 'indoor': True}, dist=dist)
 
+radius_map = radius.map(lambda x: str(x) if isinstance(x, list) else x)
 
-buildings_save = buildings.map(lambda x: str(x) if isinstance(x, list) else x)
+map_final = gpd.clip(radius_map, boundary_geojson)
 
-buildings_final = gpd.clip(buildings_save, boundary_geojson)
+map_final.to_file("C:\\Users\\niklas.vogel\\Projects\\PythonProjects\\CM_getOSM_for_Geojson\\output.geojson", driver="GeoJSON")
 
-buildings_final.to_file("C:\\Users\\niklas.vogel\\Projects\\PythonProjects\\CM_getOSM_for_Geojson\\output.geojson", driver="GeoJSON")
 
 geojson_file_path = 'output.geojson'
 
