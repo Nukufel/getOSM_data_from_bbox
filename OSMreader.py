@@ -5,7 +5,7 @@ import json
 boundary_geojson = gpd.read_file('boundary.geojson')
 
 point = 47.22347, 8.81724
-dist = 1000
+dist = 1500
 radius = ox.features_from_point(point, {'building': True, 'room': True, 'door': True, 'indoor': True, 'amenity': True, 'sport': True, 'tourism': True, 'fauntain': True, 'leisure': True}, dist=dist)
 
 radius_map = radius.map(lambda x: str(x) if isinstance(x, list) else x)
