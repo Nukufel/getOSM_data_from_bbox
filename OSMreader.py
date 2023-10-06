@@ -12,7 +12,7 @@ radius_map = radius.map(lambda x: str(x) if isinstance(x, list) else x)
 
 map_final = gpd.clip(radius_map, boundary_geojson)
 
-map_final.to_file("C:\\Users\\niklas.vogel\\Projects\\PythonProjects\\CM_getOSM_for_Geojson\\output.geojson", driver="GeoJSON")
+map_final.to_file("output.geojson", driver="GeoJSON")
 
 
 geojson_file_path = 'output.geojson'
