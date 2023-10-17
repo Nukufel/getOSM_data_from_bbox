@@ -20,14 +20,24 @@ geojson_file_path = 'output.geojson'
 with open(geojson_file_path, 'r') as geojson_file:
     myGeoJSON = json.load(geojson_file)
 
+
+
 for feature in myGeoJSON["features"]:
     obj = feature["properties"]
     keys_to_delete = []
+    idvalue = ""
+    typevalue = ""
     for key, attrValue in obj.items():
         if not attrValue:
             keys_to_delete.append(key)
+        if key == "element_type":
+            typevalue = attrValue
+        if key == "osmid":
+            idvalue = attrValue
     for key in keys_to_delete:
         del obj[key]
+    obj["@id"] = typevalue + "/" + str(idvalue)
+    feature['id'] = typevalue + "/" + str(idvalue)
 
 output_geojson_file_path = 'output.geojson'
 
