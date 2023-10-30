@@ -1,7 +1,10 @@
 import geopandas as gpd
+import osmnx
 import osmnx as ox
 import json
 
+
+ox.settings.use_cache=False
 boundary_geojson = gpd.read_file('boundary.geojson')
 
 point = 47.22347, 8.81724
