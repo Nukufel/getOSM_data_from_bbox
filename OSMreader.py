@@ -16,10 +16,10 @@ boundaries = shape(features[0]["geometry"])
 
 # getting the data from osm
 data_for_map = ox.features.features_from_polygon(boundaries, RELEVANT_TAGS)
-formatted_map_data = data_for_map.map(lambda x: str(x) if isinstance(x, list) else x)
+map_geodataframe = data_for_map.map(lambda x: str(x) if isinstance(x, list) else x)
 
-# writing data to geojson
-formatted_map_data.to_file(OUTPUT_FILE_NAME, driver="GeoJSON", na="drop")
+
+map_geodataframe.to_file(OUTPUT_FILE_NAME, driver="GeoJSON", na="drop")
 
 # getting geojson to edit
 with open(OUTPUT_FILE_NAME, 'r') as geojson_file:
